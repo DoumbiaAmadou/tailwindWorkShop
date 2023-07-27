@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model products {
+  id     String   @id @default(auto()) @map("_id") @db.ObjectId
+  images String[]
+  name   String
+  price  Float
+}
+
+model reservations {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  date_Res          DateTime @db.Date
+  kiloReservedPrice Float
+  kilosReserved     Int
+  name              String
+  priceTotal        Float
+}
+
+model trips {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  arrivaldate    DateTime @db.Date
+  avalaiblekilos Int
+  cityFrom       String
+  cityTo         String
+  departureDate  DateTime @db.Date
+  description    String
+  images         String[]
+  kiloPrice      Float
+  reservations   String[]
+  tripsStatus    String
+}
+
+model users {
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  cellphone  String?
+  city       String
+  email      String  @unique(map: "email_1")
+  firstName  String
+  name       String
+  password   String
+  userStatus String?
+}
+
+model RefreshToken {
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  token      String
+  userid     String
+  expiration String
+}

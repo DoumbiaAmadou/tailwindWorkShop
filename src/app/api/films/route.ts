@@ -10,7 +10,7 @@ export async function GET() {
   const res = await fetch(
     FILM_URL.replace("SECRETKEYHERE", "api_key=" + secret_key),
     {
-      cache: "no-store",
+      next: { revalidate: 1010 },
       headers: {
         "Content-Type": "application/json",
       },
